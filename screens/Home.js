@@ -31,6 +31,14 @@ export default function Home() {
     },
   ];
 
+  async function getfiles(params) {
+    const { data, error } = await supabase.storage.getBucket("posts");
+
+    return console.log(data, "fff", error);
+  }
+
+  getfiles();
+
   return (
     <View style={styles.container}>
       <FlatList
