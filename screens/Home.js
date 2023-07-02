@@ -9,35 +9,39 @@ import Post from "../components/Post";
 import { supabase } from "../lib/supabase";
 
 export default function Home() {
+  const CDN_URL =
+    "https://nizhbhxgsuggdsfyfyab.supabase.co/storage/v1/object/public/posts/";
   data = [
-    {
-      id: 1,
-      title: "Bunny1",
-      source: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-      views: 1000,
-    },
     {
       id: 2,
       title: "Fudchef",
-      source:
-        "https://nizhbhxgsuggdsfyfyab.supabase.co/storage/v1/object/public/posts/test.mp4?t=2023-07-01T06%3A09%3A32.393Z",
+      source: `${CDN_URL}test.mp4`,
       views: 96,
-    },
-    {
-      id: 3,
-      title: "Bunny",
-      source: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-      views: 2500,
     },
   ];
 
-  async function getfiles(params) {
-    const { data, error } = await supabase.storage.getBucket("posts");
+  async function getAllFiles() {
+    try {
+      // Call the Supabase Storage API to get all files in the public bucket
+      const { data, error } = await supabase.storage
+        .from("posts") // Specify the public bucket
+        .list(""); // Retrieve a list of files
 
-    return console.log(data, "fff", error);
+      if (error) {
+        throw error;
+      }
+
+      // Process the retrieved files
+      console.log("Files in the public bucket:");
+      data.forEach((file) => {
+        console.log(file.name);
+      });
+    } catch (error) {
+      console.error("Error retrieving files:", error.message);
+    }
   }
 
-  getfiles();
+  getAllFiles();
 
   return (
     <View style={styles.container}>

@@ -4,6 +4,8 @@ import Categories from "../screens/Categories";
 import Home from "../screens/Home";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
+import Upload from "../screens/Upload";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -29,6 +31,16 @@ const Navigation = () => {
               size={30}
               color={color}
             />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Upload"
+        component={Upload}
+        options={{
+          tabBarLabel: "Upload",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="add-circle" size={30} color={color} />
           ),
         }}
       />
