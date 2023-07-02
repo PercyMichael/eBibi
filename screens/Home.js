@@ -6,12 +6,13 @@ import {
   StatusBar,
 } from "react-native";
 import Post from "../components/Post";
+import { supabase } from "../lib/supabase";
 
 export default function Home() {
   data = [
     {
       id: 1,
-      title: "Bunny",
+      title: "Bunny1",
       source: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
       views: 1000,
     },
