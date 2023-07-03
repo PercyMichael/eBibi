@@ -7,8 +7,10 @@ import {
 } from "react-native";
 import Post from "../components/Post";
 import { supabase } from "../lib/supabase";
+import { useState } from "react";
 
 export default function Home() {
+  const [posts, setPosts] = useState([]);
   const CDN_URL =
     "https://nizhbhxgsuggdsfyfyab.supabase.co/storage/v1/object/public/posts/";
   data = [

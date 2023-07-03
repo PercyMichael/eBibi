@@ -1,12 +1,12 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Categories from "../screens/Categories";
+import Login from "../screens/Login";
 import Home from "../screens/Home";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import Upload from "../screens/Upload";
-
+import Profile from "../screens/Profile";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -45,10 +45,20 @@ const Navigation = () => {
         }}
       />
       <Tab.Screen
-        name="Categories"
-        component={Categories}
+        name="Login"
+        component={Login}
         options={{
-          tabBarLabel: "Categories",
+          tabBarLabel: "Login",
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="certificate" size={30} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarLabel: "Profile",
           tabBarIcon: ({ color, size }) => (
             <FontAwesome name="certificate" size={30} color={color} />
           ),
