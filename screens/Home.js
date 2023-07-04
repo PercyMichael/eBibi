@@ -10,10 +10,10 @@ import { supabase } from "../lib/supabase";
 import { useState } from "react";
 
 export default function Home() {
-  const [posts, setPosts] = useState([]);
+  const [postss, setPosts] = useState([]);
   const CDN_URL =
     "https://nizhbhxgsuggdsfyfyab.supabase.co/storage/v1/object/public/posts/";
-  data = [
+  const datas = [
     {
       id: 2,
       title: "Fudchef",
@@ -48,7 +48,7 @@ export default function Home() {
   return (
     <View style={styles.container}>
       <FlatList
-        data={data}
+        data={datas}
         renderItem={({ item }) => (
           <Post title={item.title} source={item.source} views={item.views} />
         )}

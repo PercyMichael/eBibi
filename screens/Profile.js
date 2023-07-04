@@ -7,12 +7,8 @@ const Profile = () => {
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState("");
-  const [website, setWebsite] = useState("");
-  const [avatarUrl, setAvatarUrl] = useState("");
 
   useEffect(() => {
-    if (session) getProfile();
-
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
     });
@@ -20,6 +16,11 @@ const Profile = () => {
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
+
+    if (session) {
+      getProfile();
+      console.log("already loged in");
+    }
   }, []);
 
   async function getProfile() {
@@ -35,11 +36,9 @@ const Profile = () => {
       if (error && status !== 406) {
         throw error;
       }
-
       if (data) {
-        setUsername(data.username);
-        setWebsite(data.website);
-        setAvatarUrl(data.avatar_url);
+        setUsername(data?.username);
+        console.log("data is here :", data);
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -50,16 +49,34 @@ const Profile = () => {
     }
   }
 
+  async function getResults(params) {
+    let { data: posts, error } = await supabase.from("posts").select("*");
+
+    if (error) {
+      console.log("my error", error);
+    }
+
+    if (data) {
+      console.log("my data", data);
+    }
+  }
+
   return (
     <View>
-      <Text>{session && session?.user ? "Hi" : "Hey"}</Text>
+      <Text>Profiles </Text>
       <Text>
-        {session?.user?.email} {username || "fff"}
+        {session && session?.user ? "Hi " : "Hey"}
+        {username}
       </Text>
+      <Text>{session?.user?.email}</Text>
 
-      <View>
-        <Button mode="outlined" onPress={() => supabase.auth.signOut()}>
+      <View style={styles.verticallySpaced}>
+        <Button mode="elevated" onPress={() => supabase.auth.signOut()}>
           Sign Out
+        </Button>
+
+        <Button mode="elevated" onPress={() => getResults()}>
+          Get Data
         </Button>
       </View>
     </View>
